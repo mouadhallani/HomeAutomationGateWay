@@ -5,18 +5,13 @@
  */
 package de.cynapsys.homeautomation.service;
 
-import de.cynapsys.homeautomation.entity.Category;
+import de.cynapsys.homeautomation.entity.Device;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
  * @author mouadh
  */
-
-public interface CategoryService extends JpaRepository<Category, Long>{
-    
-    
+public interface DeviceService extends JpaRepository <Device, Long>{
     
 }

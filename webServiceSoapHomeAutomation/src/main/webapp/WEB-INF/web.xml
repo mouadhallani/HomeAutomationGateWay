@@ -4,17 +4,44 @@
         <listener-class>com.sun.xml.ws.transport.http.servlet.WSServletContextListener</listener-class>
     </listener>
     <servlet>
-        <servlet-name>DeviceServiceImplService</servlet-name>
+        <servlet-name>CategoryWebServiceImplService</servlet-name>
+        <servlet-class>com.sun.xml.ws.transport.http.servlet.WSServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet>
+        <servlet-name>DeviceWebServiceImplService</servlet-name>
+        <servlet-class>com.sun.xml.ws.transport.http.servlet.WSServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet>
+        <servlet-name>RoomWebServiceImplService</servlet-name>
         <servlet-class>com.sun.xml.ws.transport.http.servlet.WSServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
     <servlet-mapping>
-        <servlet-name>DeviceServiceImplService</servlet-name>
-        <url-pattern>/DeviceServiceImplService</url-pattern>
+        <servlet-name>CategoryWebServiceImplService</servlet-name>
+        <url-pattern>/CategoryWebServiceImplService</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeviceWebServiceImplService</servlet-name>
+        <url-pattern>/DeviceWebServiceImplService</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RoomWebServiceImplService</servlet-name>
+        <url-pattern>/RoomWebServiceImplService</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
             30
         </session-timeout>
     </session-config>
+    
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>classpath:/config/spring-config.xml</param-value>
+    </context-param>
+
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
 </web-app>

@@ -5,13 +5,19 @@
  */
 package de.cynapsys.homeautomation.entity;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Objects;
 import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlElement;
@@ -29,23 +35,22 @@ public class Room {
     Long id;
     String name;
     String description;
-    Set<Device> devices;
+    List<Device> devices= new ArrayList<>();
 
     public Room() {
-        devices = new HashSet<>();
+        
     }
 
     public Room(Long id, String name, String description) {
         this.id = id;
         this.name = name;
         this.description = description;
-        this.devices = new HashSet<>();
     }
 
     @XmlElement
     @Column(name = "`id`", nullable = false)	
 	@Id	
-	@GeneratedValue(strategy=GenerationType.IDENTITY)	
+	@GeneratedValue(strategy = GenerationType.AUTO)	
     public Long getId() {
         return id;
     }
@@ -75,14 +80,13 @@ public class Room {
     }
 
     @XmlElement
-    @OneToMany(mappedBy="room", targetEntity=Device.class)	
-	@org.hibernate.annotations.Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE, org.hibernate.annotations.CascadeType.LOCK})	
-	@org.hibernate.annotations.LazyCollection(org.hibernate.annotations.LazyCollectionOption.TRUE)	
-    public Set<Device> getDevices() {
+    @OneToMany(fetch = FetchType.EAGER,cascade={CascadeType.ALL})
+    @JoinColumn(name="room_id")
+    public List<Device> getDevices() {
         return devices;
     }
 
-    public void setDevices(Set<Device> devices) {
+    public void setDevices(List<Device> devices) {
         this.devices = devices;
     }
     
@@ -92,6 +96,41 @@ public class Room {
     public String toString() {
         return "Room{" + "id=" + id + ", name=" + name + ", description=" + description + '}';
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 11 * hash + Objects.hashCode(this.id);
+        hash = 11 * hash + Objects.hashCode(this.name);
+        hash = 11 * hash + Objects.hashCode(this.description);
+        hash = 11 * hash + Objects.hashCode(this.devices);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Room other = (Room) obj;
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        if (!Objects.equals(this.name, other.name)) {
+            return false;
+        }
+        if (!Objects.equals(this.description, other.description)) {
+            return false;
+        }
+        if (!Objects.equals(this.devices, other.devices)) {
+            return false;
+        }
+        return true;
+    }
+    
     
     
 }

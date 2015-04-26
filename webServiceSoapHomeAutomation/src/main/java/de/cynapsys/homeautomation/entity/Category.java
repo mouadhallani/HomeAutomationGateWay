@@ -13,12 +13,14 @@ package de.cynapsys.homeautomation.entity;
  * Purchased
  */
 import java.io.Serializable;
-import java.util.Set;
+import java.util.List;
+import java.util.Objects;
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
+import org.hibernate.annotations.Cascade;
 
 @Entity
-@Table(name = "`Category`")
+@Table(name = "Category")
 @XmlRootElement(name = "Category")
 public class Category implements Serializable {
 
@@ -29,7 +31,7 @@ public class Category implements Serializable {
     private String description;
 
     
-    private java.util.Set devices = new java.util.HashSet();
+    private List<Device> devices;
 
     public Category(Long id, String name, String description) {
         this.id = id;
@@ -37,12 +39,19 @@ public class Category implements Serializable {
         this.description = description;
     }
 
+    public Category(String name, String description) {
+        this.name = name;
+        this.description = description;
+    }
+    
+    
+
     public Category() {
     }
 
     @Id
     @Column(name = "`id`", nullable = false)
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     public Long getId() {
         return id;
     }
@@ -70,15 +79,59 @@ public class Category implements Serializable {
         this.description = description;
     }
 
-    @OneToMany(mappedBy = "category", targetEntity = Device.class)
-    @org.hibernate.annotations.Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE, org.hibernate.annotations.CascadeType.LOCK})
-    @org.hibernate.annotations.LazyCollection(org.hibernate.annotations.LazyCollectionOption.TRUE)
-    public Set getDevices() {
+    @OneToMany(fetch = FetchType.EAGER,cascade={CascadeType.ALL})
+    @JoinColumn(name="category_id")
+    public List<Device> getDevices() {
         return devices;
     }
 
-    public void setDevices(Set devices) {
+    public void setDevices(List<Device> devices) {
         this.devices = devices;
     }
+
+    @Override
+    public String toString() {
+        return "Category{" + "id=" + id + ", name=" + name + ", description=" + description + ", devices=" + devices + '}';
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 13 * hash + Objects.hashCode(this.id);
+        hash = 13 * hash + Objects.hashCode(this.name);
+        hash = 13 * hash + Objects.hashCode(this.description);
+        hash = 13 * hash + Objects.hashCode(this.devices);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Category other = (Category) obj;
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        if (!Objects.equals(this.name, other.name)) {
+            return false;
+        }
+        if (!Objects.equals(this.description, other.description)) {
+            return false;
+        }
+        if (!Objects.equals(this.devices, other.devices)) {
+            return false;
+        }
+        return true;
+    }
+    
+    
+    
+    
+    
+    
 
 }

@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <endpoints version="2.0" xmlns="http://java.sun.com/xml/ns/jax-ws/ri/runtime">
-  <endpoint implementation="de.cynapsys.homeautomation.serviceImpl.DeviceServiceImpl" name="DeviceServiceImplService" url-pattern="/DeviceServiceImplService"/>
+  <endpoint implementation="de.cynapsys.homeautomation.webserviceImpl.CategoryWebServiceImpl" name="CategoryWebServiceImplService" url-pattern="/CategoryWebServiceImplService"/>
+  <endpoint implementation="de.cynapsys.homeautomation.webserviceImpl.DeviceWebServiceImpl" name="DeviceWebServiceImplService" url-pattern="/DeviceWebServiceImplService"/>
+  <endpoint implementation="de.cynapsys.homeautomation.webserviceImpl.RoomWebServiceImpl" name="RoomWebServiceImplService" url-pattern="/RoomWebServiceImplService"/>
 </endpoints>

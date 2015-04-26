@@ -5,6 +5,7 @@
  */
 package de.cynapsys.homeautomation.entity;
 
+import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -18,6 +19,8 @@ import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 
 /**
  *
@@ -38,6 +41,14 @@ public class Device {
     public Device() {
     }
 
+    public Device(String name, String description, int currentValue) {
+        this.name = name;
+        this.description = description;
+        this.currentValue = currentValue;
+    }
+    
+    
+
     public Device(Long id, String name, String description, int currentValue) {
         this.id = id;
         this.name = name;
@@ -46,7 +57,7 @@ public class Device {
     }
 
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @XmlElement
     public Long getId() {
         return id;
@@ -87,11 +98,10 @@ public class Device {
     }
 
     @XmlElement
-    @ManyToOne(targetEntity = Room.class, fetch = FetchType.LAZY)
-    @org.hibernate.annotations.Cascade({org.hibernate.annotations.CascadeType.LOCK})
-    @JoinColumns({
-        @JoinColumn(name = "`Roomid`", referencedColumnName = "`id`", nullable = false)})
-    @org.hibernate.annotations.LazyToOne(value = org.hibernate.annotations.LazyToOneOption.NO_PROXY)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="room_id", 
+                insertable=false, updatable=false, 
+                nullable=true)
     public Room getRoom() {
         return room;
     }
@@ -101,11 +111,10 @@ public class Device {
     }
 
     @XmlElement
-    @ManyToOne(targetEntity = Category.class, fetch = FetchType.LAZY)
-    @org.hibernate.annotations.Cascade({org.hibernate.annotations.CascadeType.LOCK})
-    @JoinColumns({
-        @JoinColumn(name = "`Categoryid`", referencedColumnName = "`id`", nullable = false)})
-    @org.hibernate.annotations.LazyToOne(value = org.hibernate.annotations.LazyToOneOption.NO_PROXY)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="category_id", 
+                insertable=false, updatable=false, 
+                nullable=true)
     public Category getCategory() {
         return category;
     }
@@ -116,7 +125,54 @@ public class Device {
 
     @Override
     public String toString() {
-        return "Device{" + "id=" + id + ", name=" + name + ", description=" + description + ", currentValue=" + currentValue + "}\n";
+        return "Device{" + "id=" + id + ", name=" + name + ", description=" + description + ", currentValue=" + currentValue + '}';
     }
+
+    
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 97 * hash + Objects.hashCode(this.id);
+        hash = 97 * hash + Objects.hashCode(this.name);
+        hash = 97 * hash + Objects.hashCode(this.description);
+        hash = 97 * hash + this.currentValue;
+        hash = 97 * hash + Objects.hashCode(this.room);
+        hash = 97 * hash + Objects.hashCode(this.category);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Device other = (Device) obj;
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        if (!Objects.equals(this.name, other.name)) {
+            return false;
+        }
+        if (!Objects.equals(this.description, other.description)) {
+            return false;
+        }
+        if (this.currentValue != other.currentValue) {
+            return false;
+        }
+        if (!Objects.equals(this.room, other.room)) {
+            return false;
+        }
+        if (!Objects.equals(this.category, other.category)) {
+            return false;
+        }
+        return true;
+    }
+    
+    
+    
 
 }
