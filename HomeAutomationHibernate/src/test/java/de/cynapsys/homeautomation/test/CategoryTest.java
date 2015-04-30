@@ -8,7 +8,9 @@ package de.cynapsys.homeautomation.test;
 import de.cynapsys.homeautomation.entity.Category;
 import de.cynapsys.homeautomation.entity.Device;
 import de.cynapsys.homeautomation.service.CategoryService;
+import de.cynapsys.homeautomation.service.DeviceService;
 import de.cynapsys.homeautomation.serviceImpl.CategoryServiceImpl;
+import de.cynapsys.homeautomation.serviceImpl.DeviceServiceImpl;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.After;
@@ -46,40 +48,44 @@ public class CategoryTest {
     
     @Test
     public void testCategory(){
-        categoryService = new CategoryServiceImpl();
         
-        
-        Category c = new Category("category 1", "description of category 1");
-        
-        
-        
-        Device device = new Device("device name", "device description 11 ", 1000);
-        Device device2 = new Device("device name 2", "device description 2 11", 1000);
-        
-        List<Device> dev = new ArrayList<>();
-        
-        dev.add(device);
-        dev.add(device2);
-        
-        if(c.getDevices()==null){
-        c.setDevices(new ArrayList<Device>());
-        }
-        c.getDevices().add(device);
-        c.getDevices().add(device2);
-        
-        categoryService.addCategory(c);
-        
-        
-        c.setDescription("test Update hahaha");
-        //categoryService.save(c);
+        DeviceService ds = new DeviceServiceImpl();
+        Device d = new Device("device", "device description", 11);
+        ds.addDevice(d);
+//        categoryService = new CategoryServiceImpl();
 //        
-//        c = new Category("category test", "description of category test emchiiiiiii");
-//        categoryService.save(c);
 //        
-//        c = new Category("category test", "description of category test emchiiiiiii222222222");
-        //categoryService.save(c);
-        
-        System.out.println("List Category : "+categoryService.getAllCategories());
+//        Category c = new Category("category 1", "description of category 1");
+//        
+//        
+//        
+//        Device device = new Device("device name", "device description 11 ", 1000);
+//        Device device2 = new Device("device name 2", "device description 2 11", 1000);
+//        
+//        List<Device> dev = new ArrayList<>();
+//        
+//        dev.add(device);
+//        dev.add(device2);
+//        
+//        if(c.getDevices()==null){
+//        c.setDevices(new ArrayList<Device>());
+//        }
+//        c.getDevices().add(device);
+//        c.getDevices().add(device2);
+//        
+//        categoryService.addCategory(c);
+//        
+//        
+//        c.setDescription("test Update hahaha");
+//        //categoryService.save(c);
+////        
+////        c = new Category("category test", "description of category test emchiiiiiii");
+////        categoryService.save(c);
+////        
+////        c = new Category("category test", "description of category test emchiiiiiii222222222");
+//        //categoryService.save(c);
+//        
+//        System.out.println("List Category : "+categoryService.getAllCategories());
     }
 
     /**

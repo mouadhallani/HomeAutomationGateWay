@@ -15,21 +15,29 @@
             <p:growl id="growl" showDetail="true" sticky="false"  />
 
 
-            <table>
-                <tr>
-                    <td>Name :</td>
-                    <td><h:inputText size="10" value="#{categoryBean.category.name}" /></td>
-                </tr>
-                <tr>
-                    <td>descriotion :</td>
-                    <td><h:inputText size="20" value="#{categoryBean.category.name}" /></td>
-                </tr>
-                
-                <tr>
-                    <td> </td>
-                    <td><h:commandButton value="Add Employee" /></td>
-                </tr>
-            </table>
+            <p:panel id="panel" header="New User">
+
+                <p:messages id="msgs" />
+
+                <h:panelGrid columns="3" cellpadding="5">
+                    <p:outputLabel for="categoryname" value="Category Name:" />
+                    <p:inputText id="categoryname" value="#{categoryBean.category.name}" required="true" label="categoryname">
+                        <f:validateLength minimum="2" />
+                    </p:inputText>
+                    <p:message for="categoryname" display="icon" />
+
+                    <p:outputLabel for="description" value="Category Description:" />
+                    <p:inputText id="description" value="#{categoryBean.category.description}" label="Lastname" required="true">
+                        <f:validateLength minimum="2" />
+                        <p:ajax update="msgLastname" event="keyup" />
+                    </p:inputText>
+                    
+                    <p:message for="description" id="msgLastname" display="icon" />
+
+                </h:panelGrid>
+
+                <p:commandButton value="Save" update="panel" actionListener="#{categoryBean.addCategory()}" icon="ui-icon-check" />
+            </p:panel>
 
             <p:dataTable var="category" value="#{categoryBean.categoryList}" id="AjoutTab" widgetVar="CategoryTable"
                          emptyMessage="Not found categories " paginator="true" rows="10" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"

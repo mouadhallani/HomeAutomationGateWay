@@ -29,8 +29,28 @@ public class CategoryBean {
     @PostConstruct
     public void init(){
         categoryList=categoryService.getAllCategories();
-        System.out.println("Adherent Bean INIT :)");
+        category = new Category();
     }
+    
+    public void addCategory(){
+        
+        System.out.println("test add category");
+        categoryService.addCategory(category);
+        categoryList=categoryService.getAllCategories();
+    }
+    
+    
+    public boolean deleteCategory(Long CategoryID) {
+            return categoryService.deleteCategory(CategoryID);
+    }
+
+    
+    public boolean updateCategory(Category category) {
+            return categoryService.updateCategory(category);
+    }
+    
+    
+    
 
     public List<Category> getCategoryList() {
         return categoryList;

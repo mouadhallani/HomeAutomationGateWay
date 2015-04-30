@@ -21,7 +21,7 @@ import utils.HibernateUtil;
 
 public class CategoryServiceImpl implements CategoryService{
 
-    Session session;
+    static Session session;
 
     public CategoryServiceImpl() {
     }
