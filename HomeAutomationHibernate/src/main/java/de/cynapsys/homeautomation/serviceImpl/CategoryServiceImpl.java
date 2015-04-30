@@ -8,6 +8,7 @@ package de.cynapsys.homeautomation.serviceImpl;
 import de.cynapsys.homeautomation.entity.Category;
 import de.cynapsys.homeautomation.service.CategoryService;
 import java.util.List;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import utils.HibernateUtil;
 
@@ -30,12 +31,14 @@ public class CategoryServiceImpl implements CategoryService{
         
 
     @Override
-    public void addCategory(Category c) {
+    public Long addCategory(Category c) {
         session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
-        System.out.println(session.save(c)+"  Test Save Category !!!");
+        Long a = (Long)session.save(c);
         session.getTransaction().commit();
         session.close();
+        System.out.println(a);
+        return a;
     }
 
     @Override
@@ -60,23 +63,34 @@ public class CategoryServiceImpl implements CategoryService{
     }
 
     @Override
-    public void deleteCategory(Long id) {
+    public boolean deleteCategory(Long id) {
         
-        session = HibernateUtil.getSessionFactory().openSession();
-        session.beginTransaction();
-        session.delete(getCategoryById(id));
-        session.getTransaction().commit();
-        session.close();
+        try {
+            session = HibernateUtil.getSessionFactory().openSession();
+            session.beginTransaction();
+            session.delete(getCategoryById(id));
+            session.getTransaction().commit();
+            session.close();
+            return true;
+        } catch (HibernateException hibernateException) {
+            return false;
+        }
+        
     }
 
     @Override
-    public void updateCategory(Category c) {
+    public boolean updateCategory(Category c) {
         
-        session = HibernateUtil.getSessionFactory().openSession();
-        session.beginTransaction();
-        session.merge(c);
-        session.getTransaction().commit();
-        session.close();
+        try {
+            session = HibernateUtil.getSessionFactory().openSession();
+            session.beginTransaction();
+            session.merge(c);
+            session.getTransaction().commit();
+            session.close();
+            return true;
+        } catch (HibernateException hibernateException) {
+            return false;
+        }
     }
 
     

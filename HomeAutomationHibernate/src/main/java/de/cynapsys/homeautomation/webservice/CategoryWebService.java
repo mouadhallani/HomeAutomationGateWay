@@ -27,7 +27,7 @@ public interface CategoryWebService {
     Category getCategoryByID(@WebParam(name = "CategoryID") Long CategoryID);
 
     @WebMethod
-    void addCategory(@WebParam(name = "Category") Category Category);
+    Long addCategory(@WebParam(name = "Category") Category Category);
 
     @WebMethod
     boolean deleteCategory(@WebParam(name = "CategoryID") Long CategoryID);

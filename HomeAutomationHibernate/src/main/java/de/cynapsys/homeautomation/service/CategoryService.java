@@ -16,11 +16,11 @@ import java.util.List;
 //public interface CategoryService extends CRUDService<Category, Long>{
 public interface CategoryService{   
     
-    public void addCategory(Category c);
+    public Long addCategory(Category c);
     public Category getCategoryById(Long id);
     public List<Category> getAllCategories();
-    public void deleteCategory(Long id);
-    public void updateCategory(Category c);
+    public boolean deleteCategory(Long id);
+    public boolean updateCategory(Category c);
     
     
 }

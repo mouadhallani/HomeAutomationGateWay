@@ -15,10 +15,10 @@ import java.util.List;
  */
 public interface DeviceService{
     
-    public void addDevice(Device d);
+    public Long addDevice(Device d);
     public Device getDeviceById(Long id);
     public List<Device> getAllDevices();
-    public void deleteDevice(Long id);
-    public void updateDevice(Device d);
+    public boolean deleteDevice(Long id);
+    public boolean updateDevice(Device d);
     
 }

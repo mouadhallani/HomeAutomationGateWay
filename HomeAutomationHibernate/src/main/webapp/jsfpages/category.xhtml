@@ -1,0 +1,120 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+        <link rel="stylesheet" href="css/style.css "/>
+    </h:head>
+    <h:body>
+        <!--        <h:form id="AjoutP">
+                    <p:commandButton value="Ajouter une personne" icon="ui-icon-adds" actionListener="#{personneBean.ajoutEvent(actionEvent)}" update=":edit:editP" oncomplete="personneAjout.show()"/>
+                </h:form>-->
+        <br/>
+        <h:form id="a">
+            <p:growl id="growl" showDetail="true" sticky="false"  />
+
+
+            <table>
+                <tr>
+                    <td>Name :</td>
+                    <td><h:inputText size="10" value="#{categoryBean.category.name}" /></td>
+                </tr>
+                <tr>
+                    <td>descriotion :</td>
+                    <td><h:inputText size="20" value="#{categoryBean.category.name}" /></td>
+                </tr>
+                
+                <tr>
+                    <td> </td>
+                    <td><h:commandButton value="Add Employee" /></td>
+                </tr>
+            </table>
+
+            <p:dataTable var="category" value="#{categoryBean.categoryList}" id="AjoutTab" widgetVar="CategoryTable"
+                         emptyMessage="Not found categories " paginator="true" rows="10" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="5,10,15" style="width:500px;font-size:13px;margin-left: 150px">
+
+
+                <p:column id="personneId" headerText="ID" filterBy="#{category.id}" filterMatchMode="exact" footerText=" ID exacte">
+                    <h:outputText value="#{category.id}" />
+                </p:column>
+                <p:column headerText="Nom" id="personneNom" filterBy="#{category.name}" filterMatchMode="exact" footerText="nom exacte">
+                    <h:outputText value="#{category.name}" />
+                </p:column>
+                <p:column headerText="Prenom" id="personnePrenom" filterBy="#{category.description}" filterMatchMode="contains" footerText="contient">
+                    <h:outputText value="#{category.description}" />
+                </p:column>
+
+
+                <!--                <p:column style="width:4%">
+                                    <p:commandButton id="Editer"  update=":Actualise:displaye" icon="ui-icon-arrowrefresh-1-w" oncomplete="personneEdit.show();" actionListener="#{personneBean.editEvent(personne.id)}" title="Editer"/>
+                                </p:column>
+                                <p:column style="width:4%">
+                                    <p:commandButton id="Supprimer"  update=":a:AjoutTab, :a:growl" icon="ui-icon-trash" action="#{personneBean.delet(personne) }"  title="Supprime"/>
+                                </p:column>-->
+            </p:dataTable>
+        </h:form>
+
+        <!--        <h:form id="edit">
+         
+                    <p:dialog header="Ajout de Personne" widgetVar="personneAjout" resizable="false" id="editP" modal="true">
+         
+                        <p:growl id="growl" showDetail="true" sticky="false" life="10000"/>
+                        <h:panelGrid id="display" columns="2" cellpadding="4" style="margin:0 auto;">
+         
+                            <f:facet name="header">
+                                <h:outputLabel value="bonjour"/>
+                            </f:facet>
+         
+                            <h:outputLabel for="nom" title="Nom" value="Nom:" style="color: crimson;" />
+                            <h:inputText value="#{personneBean.personne.nom}"  id="nom" required="true"/>
+                            <h:outputLabel for="prenom"  value="Prenom:" style="color: crimson;"/>
+                            <h:inputText value="#{personneBean.personne.prenom}"  id="prenom" required="true"/>
+                            <h:outputLabel for="age" title="Nom" value="Age" style="color: crimson;"/>
+                            <h:outputLabel for="email" title="Nom" value="Email" style="color: crimson;" />
+                            <h:inputText value="#{personneBean.personne.age}"   id="age" required="true"/>
+                            <h:inputText value="#{personneBean.personne.email}"  id="email" required="true"/>
+                            <h:outputLabel for="emploi" title="Nom" value="Emploi" style="color: crimson;"/>
+                            <h:outputLabel for="societe" title="Nom" value="Société" style="color: crimson;"/>
+                            <h:inputText value="#{personneBean.personne.emploi}"   id="emploi" required="true"/>
+                            <h:inputText value="#{personneBean.personne.société}"  id="societe" required="true"/>
+         
+                        </h:panelGrid>
+                        <p:separator/>
+                        <p:commandButton value="Enregistrer" update=":a:AjoutTab, growl" actionListener="#{personneBean.ajoutp(actionEvent) }" oncomplete="personneAjout.hide()"  />
+                    </p:dialog>
+         
+                </h:form>-->
+
+        <!--        <h:form id="Actualise">
+                    <p:dialog header="Modification" widgetVar="personneEdit" resizable="false" id="editPer" modal="true">
+                        <p:growl id="growl" showDetail="true" sticky="false" />
+                        <h:panelGrid id="displaye" columns="2" cellpadding="4" style="margin:0 auto;">
+         
+                            <f:facet name="header">
+                                <h:outputLabel value="bonjour"/>
+                            </f:facet>
+         
+                            <h:outputLabel for="nom" title="Nom" value="Nom:" style="color: crimson;" />
+                            <h:inputText value="#{personneBean.personne.nom}"  id="nom" />
+                            <h:outputLabel for="prenom"  value="Prenom:" style="color: crimson;"/>
+                            <h:inputText value="#{personneBean.personne.prenom}"  id="prenom" />
+                            <h:outputLabel for="age" title="Nom" value="Age" style="color: crimson;"/>
+                            <h:outputLabel for="email" title="Nom" value="Email" style="color: crimson;"/>
+                            <h:inputText value="#{personneBean.personne.age}"   id="age" />
+                            <h:inputText value="#{personneBean.personne.email}"  id="email" />
+                            <h:outputLabel for="emploi" title="Nom" value="Emploi" style="color: crimson;"/>
+                            <h:outputLabel for="societe" title="Nom" value="Société" style="color: crimson;"/>
+                            <h:inputText value="#{personneBean.personne.emploi}"   id="emploi" />
+                            <h:inputText value="#{personneBean.personne.société}"  id="societe" />
+         
+                        </h:panelGrid>
+                        <p:separator/>
+                        <p:commandButton value="Enregistrer" update=":a:AjoutTab, growl" actionListener="#{personneBean.edition(actionEvent) }" oncomplete="personneEdit.hide()"/>
+                    </p:dialog>
+         
+                </h:form>-->
+
+    </h:body>
+</html>

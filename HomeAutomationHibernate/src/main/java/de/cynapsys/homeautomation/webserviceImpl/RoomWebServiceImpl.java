@@ -39,30 +39,22 @@ public class RoomWebServiceImpl implements RoomWebService{
     }
 
     @Override
-    public void addRoom(Room room) {
-        roomService.addRoom(room);
+    public Long addRoom(Room room) {
+        return roomService.addRoom(room);
     }
 
     @Override
     public boolean updateRoom(Room room) {
-        try{
-            roomService.updateRoom(room);
-            return true;
-        }
-        catch (Exception e){
-            return false;
-        }
+
+          return  roomService.updateRoom(room);
+
     }
 
     @Override
     public boolean deleteRoom(Long roomID) {
-        try{
-            roomService.deleteRoom(roomID);
-            return true;
-        }
-        catch (Exception e){
-            return false;
-        }
+
+           return roomService.deleteRoom(roomID);
+
     }
 
     @Override

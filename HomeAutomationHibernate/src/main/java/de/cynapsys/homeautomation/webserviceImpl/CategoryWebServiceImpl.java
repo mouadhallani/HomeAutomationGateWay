@@ -37,32 +37,21 @@ public class CategoryWebServiceImpl implements CategoryWebService {
     }
 
     @Override
-    public void addCategory(Category category) {
-        categoryService.addCategory(category);
-        System.out.println("test");
+    public Long addCategory(Category category) {
+        return categoryService.addCategory(category);
     }
 
     @Override
     public boolean deleteCategory(Long CategoryID) {
-        try {
-            categoryService.deleteCategory(CategoryID);
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
+            return categoryService.deleteCategory(CategoryID);
     }
 
     @Override
     public boolean updateCategory(Category category) {
 
-        try {
-            categoryService.updateCategory(category);
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
+
+            return categoryService.updateCategory(category);
+
     }
 
 }

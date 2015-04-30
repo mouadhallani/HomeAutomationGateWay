@@ -33,7 +33,7 @@ public interface DeviceWebService {
     boolean setValue(@WebParam(name = "deviceID") Long deviceID, @WebParam(name = "value") int value);
     
     @WebMethod
-    void addDevice(@WebParam(name = "device")Device device);
+    Long addDevice(@WebParam(name = "device")Device device);
     
     @WebMethod
     boolean deleteDevice(@WebParam(name = "deviceID") Long deviceID);

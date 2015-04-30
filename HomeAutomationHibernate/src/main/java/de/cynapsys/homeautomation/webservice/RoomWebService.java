@@ -29,7 +29,7 @@ public interface RoomWebService {
     Room getRoomById(@WebParam(name = "roomID") Long roomID);
     
     @WebMethod
-    void addRoom(@WebParam(name = "room")Room room);
+    Long addRoom(@WebParam(name = "room")Room room);
     
     @WebMethod
     boolean updateRoom(@WebParam(name = "room")Room room);

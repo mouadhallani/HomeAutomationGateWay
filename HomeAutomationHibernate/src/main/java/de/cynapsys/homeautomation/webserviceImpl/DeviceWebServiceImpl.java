@@ -62,30 +62,22 @@ public class DeviceWebServiceImpl implements DeviceWebService{
     }
 
     @Override
-    public void addDevice(Device device) {
-        deviceService.addDevice(device);
+    public Long addDevice(Device device) {
+        return deviceService.addDevice(device);
     }
 
     @Override
     public boolean deleteDevice(Long deviceID) {
-        try{
-            deviceService.deleteDevice(deviceID);
-            return true;
-        }
-        catch (Exception e){
-            return false;
-        }
+
+           return deviceService.deleteDevice(deviceID);
+
     }
 
     @Override
     public boolean updateDevice(Device device) {
-        try{
-            deviceService.updateDevice(device);
-            return true;
-        }
-        catch (Exception e){
-            return false;
-        }
+
+         return   deviceService.updateDevice(device);
+
     }
     
 }

@@ -14,9 +14,9 @@ import java.util.List;
  * @author mouadh
  */
 public interface RoomService {
-        public void addRoom(Room d);
+    public Long addRoom(Room d);
     public Room getRoomById(Long id);
     public List<Room> getAllRooms();
-    public void deleteRoom(Long id);
-    public void updateRoom(Room d);
+    public boolean deleteRoom(Long id);
+    public boolean updateRoom(Room d);
 }

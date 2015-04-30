@@ -5,10 +5,14 @@
  */
 package de.cynapsys.homeautomation.serviceImpl;
 
+import de.cynapsys.homeautomation.entity.Device;
 import de.cynapsys.homeautomation.entity.Room;
 import de.cynapsys.homeautomation.service.RoomService;
 import java.util.List;
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import utils.HibernateUtil;
 
 /**
  *
@@ -17,29 +21,63 @@ import org.hibernate.SessionFactory;
 
 public class RoomServiceImpl implements RoomService{
 
-    private SessionFactory SessionFactory;
+    Session session;
+    
     @Override
-    public void addRoom(Room c) {
-        SessionFactory.getCurrentSession().save(c);
-    }
+    public Long addRoom(Room r) {
+        session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        Long id=(Long)session.save(r);
+        session.getTransaction().commit();
+        session.close();
+        return id;
+   }
 
     @Override
     public Room getRoomById(Long id) {
-        return (Room) SessionFactory.getCurrentSession().load(Room.class, id);
+        session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        Room rr= (Room)session.load(Room.class, id);
+        session.getTransaction().commit();
+        session.close();
+        return rr;
     }
 
     @Override
     public List<Room> getAllRooms() {
-        return  SessionFactory.getCurrentSession().createCriteria(Room.class).list();
+        session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        List<Room> lr=session.createCriteria(Room.class).list();
+        session.getTransaction().commit();
+        session.close();
+        return lr;
     }
 
     @Override
-    public void deleteRoom(Long id) {
-        SessionFactory.getCurrentSession().delete(getRoomById(id));
+    public boolean deleteRoom(Long id) { 
+        try {
+            session = HibernateUtil.getSessionFactory().openSession();
+            session.beginTransaction();
+            session.delete(getRoomById(id));
+            session.getTransaction().commit();
+            session.close();
+            return true;
+        } catch (HibernateException hibernateException) {
+            return false;
+        }
     }
 
     @Override
-    public void updateRoom(Room c) {
-        SessionFactory.getCurrentSession().update(c);
+    public boolean updateRoom(Room r) {
+            try {
+            session = HibernateUtil.getSessionFactory().openSession();
+            session.beginTransaction();
+            session.merge(r);
+            session.getTransaction().commit();
+            session.close();
+            return true;
+        } catch (HibernateException hibernateException) {
+            return false;
+        }
     }  
 }
