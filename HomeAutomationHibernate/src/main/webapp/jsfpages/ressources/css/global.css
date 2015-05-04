@@ -1,0 +1,196 @@
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+  outline: none;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+html { height: 101%; }
+body { font-family: Arial, Tahoma, sans-serif; font-size: 62.5%; line-height: 1; background: #fff; color: #343434; overflow-x: hidden; }
+
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section { display: block; }
+ol, ul { list-style: none; }
+
+blockquote, q { quotes: none; }
+blockquote:before, blockquote:after, q:before, q:after { content: ''; content: none; }
+strong { font-weight: bold; } 
+
+table { border-collapse: collapse; border-spacing: 0; }
+img { border: 0; max-width: 100%; }
+
+h2 { font-size: 2.3em; line-height: 1.1em; font-family: 'ABeeZee', 'Trebuchet MS', Arial, sans-serif; color: #646464; font-weight: bold; margin-bottom: 12px; }
+
+p { font-size: 1.4em; line-height: 1.25em; margin-bottom: 20px; color: #444; }
+
+a.close { display: inline-block; background: #5574b4; padding: 10px 8px; color: #fff; font-weight: bold; font-size: 1.4em; text-decoration: none; margin-bottom: 6px; }
+a.close:hover { background: #4a6397; }
+
+#about { 
+  display: block;
+  width: 350px;
+  background: #fff;
+  padding: 10px 11px;
+  padding-top: 35px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+}
+
+#mainpage {
+  width: 100%;
+  height: auto;
+  display: block;
+  background: url('../img/background.jpg') #fefefe;
+  min-height: 800px;
+  overflow: hidden;
+  position: relative;
+  z-index: 2;
+  color: #fff;
+}
+
+.menutitle{
+  color: rgb(185, 206, 187);
+  font-weight: bold;
+  margin-left: 4%;
+  text-decoration: underline;
+}
+
+
+
+
+#mainpage nav { 
+  position: absolute;
+  width: 200px; 
+  min-height: 100%;
+  padding: 0px 8px;
+  padding-top: 220px;
+  background: #1A4C2B;
+}
+#mainpage nav h1 {
+  font-family: 'ABeeZee', 'Trebuchet MS', Arial, sans-serif;
+  font-size: 2.85em;
+  line-height: 1.3em;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+#logo{
+	position:absolute;
+	top:1%;
+	left:105%;
+}
+
+
+#navigation {
+  list-style: none;
+  padding-top: 30px;
+}
+#navigation li { display: block; margin-bottom: 2px; font-size: 1.4em; font-weight: bold; }
+#navigation li a { display: block; padding: 8px 6px; width: 100%; color: #d1e0f8; text-decoration: none; }
+#navigation li a:hover, #navigation li a.open { color: #fff; background: rgb(57, 96, 50);; }
+
+
+#content {
+  display: block;
+  margin-left: 200px;
+  padding: 10px 15px;
+
+}
+
+#content p {
+  color: #fff;
+  text-shadow: 2px 1px 0px rgba(0,0,0,0.7);
+}
+
+
+/* right navigation */
+#aboutright { 
+  display: block;
+  width: 350px;
+  padding: 8px 11px;
+  padding-top: 35px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+}
+
+nav#right { 
+  position: absolute;
+  width: 180px; 
+  min-height: 100%;
+  right: 0;
+  padding: 0px 8px;
+  padding-top: 220px;
+  background: #343638;
+}
+
+
+/* top navigation */
+#mainpage nav#top {
+  position: absolute;
+  height: 120px; 
+  width: 100%;
+  min-height: 120px;
+  top: 0;
+  text-align: center;
+  padding: 20px 0px;
+  background: #343638;
+}
+
+nav#top #navigation li {
+  display: inline-block; 
+  margin-right: 6px;
+}
+
+
+/* bottom navigation */
+#mainpage nav#bottom {
+  position: fixed;
+  height: 120px; 
+  width: 100%;
+  min-height: 120px;
+  bottom: 0;
+  text-align: center;
+  padding: 20px 0px;
+  background: rgba(52,54,56,0.6);
+}
+
+nav#bottom #navigation li {
+  display: inline-block; 
+  margin-right: 6px;
+}
+
+.fixed-btm { padding-bottom: 120px; /* add extra space when nav is fixed at the bottom */ }
+
+.icon{
+    width: 30px;
+    height: 30px;
+}
+.text{
+    margin-top: 5px;
+    padding-bottom: 10px;
+    margin-left: 20px;
+    position: absolute;
+    top: 18%;
+}
+.lien{
+    position: relative;
+}
+.title{
+    position: absolute;
+    top: 15%;
+    left: -1%;
+}
+
+.texts{
+    vertical-align: top;
+    font-size: xx-large;
+}

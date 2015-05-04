@@ -7,6 +7,7 @@ package de.cynapsys.homeautomation.webserviceImpl;
 
 import de.cynapsys.homeautomation.entity.Device;
 import de.cynapsys.homeautomation.service.DeviceService;
+import de.cynapsys.homeautomation.serviceImpl.DeviceServiceImpl;
 import de.cynapsys.homeautomation.webservice.DeviceWebService;
 import java.util.ArrayList;
 import javax.jws.WebService;
@@ -22,7 +23,7 @@ public class DeviceWebServiceImpl implements DeviceWebService{
 //        DeviceService deviceService; 
 //        
 //        
-    DeviceService deviceService;
+    DeviceService deviceService = new DeviceServiceImpl();
 //        
 //        
 //    public DeviceWebServiceImpl() {

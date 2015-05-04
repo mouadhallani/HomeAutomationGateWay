@@ -6,9 +6,17 @@
     <property name="hibernate.connection.driver_class">org.hsqldb.jdbcDriver</property>
     <property name="hibernate.connection.url">jdbc:hsqldb:file:homeautomationDataBase;shutdown=true</property>
     <property name="hibernate.connection.username">root</property>-->
-    <property name="hibernate.dialect">org.hibernate.dialect.DerbyDialect</property>
+    
+    
+<!--    <property name="hibernate.dialect">org.hibernate.dialect.DerbyDialect</property>
     <property name="hibernate.connection.driver_class">org.apache.derby.jdbc.EmbeddedDriver</property>
     <property name="hibernate.connection.url">jdbc:derby:hibernatejpa-db;create=true</property>
+    <property name="hibernate.connection.username">root</property>-->
+    
+    
+    <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+    <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+    <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/homeautomation</property>
     <property name="hibernate.connection.username">root</property>
     
     
@@ -21,5 +29,7 @@
     <mapping class="de.cynapsys.homeautomation.entity.Category"/>
     <mapping class="de.cynapsys.homeautomation.entity.Device"/>
     <mapping class="de.cynapsys.homeautomation.entity.Room"/>
+    <mapping class="de.cynapsys.homeautomation.entity.network.DdnsEntity"/>
+    <mapping class="de.cynapsys.homeautomation.entity.network.UpnpEntity"/>
   </session-factory>
 </hibernate-configuration>

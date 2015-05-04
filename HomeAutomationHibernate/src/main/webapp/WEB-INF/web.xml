@@ -35,10 +35,6 @@
             30
         </session-timeout>
     </session-config>
-    
-    
-    
-    
     <welcome-file-list>
         <welcome-file>jsfpages/hello.xhtml</welcome-file>
     </welcome-file-list>
@@ -67,7 +63,7 @@
         <param-name>javax.faces.PROJECT_STAGE</param-name>
         <param-value>Development</param-value>
     </context-param>
-    <listener>
+    <!--    <listener>
         <listener-class>com.sun.faces.config.ConfigureListener</listener-class>
-    </listener>
+    </listener>-->
 </web-app>

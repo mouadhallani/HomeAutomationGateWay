@@ -5,7 +5,9 @@
  */
 package de.cynapsys.homeautomation.service;
 
+import de.cynapsys.homeautomation.entity.Category;
 import de.cynapsys.homeautomation.entity.Device;
+import de.cynapsys.homeautomation.entity.Room;
 import java.util.List;
 
 
@@ -20,5 +22,7 @@ public interface DeviceService{
     public List<Device> getAllDevices();
     public boolean deleteDevice(Long id);
     public boolean updateDevice(Device d);
+    public List<Device> getDevicesByRoom(Room r);
+    public List<Device> getDevicesByCategory(Category c);
     
 }

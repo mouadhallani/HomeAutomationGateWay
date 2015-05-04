@@ -10,6 +10,7 @@ import de.cynapsys.homeautomation.service.CategoryService;
 import de.cynapsys.homeautomation.serviceImpl.CategoryServiceImpl;
 import de.cynapsys.homeautomation.webservice.CategoryWebService;
 import java.util.ArrayList;
+import java.util.List;
 import javax.annotation.Resource;
 import javax.jws.WebService;
 
@@ -27,8 +28,8 @@ public class CategoryWebServiceImpl implements CategoryWebService {
         
 
     @Override
-    public ArrayList<Category> getAllCategories() {
-        return (ArrayList) categoryService.getAllCategories();
+    public List<Category> getAllCategories() {
+        return  categoryService.getAllCategories();
     }
 
     @Override

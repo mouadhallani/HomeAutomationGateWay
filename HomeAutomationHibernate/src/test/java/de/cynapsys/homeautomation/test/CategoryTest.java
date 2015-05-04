@@ -7,10 +7,14 @@ package de.cynapsys.homeautomation.test;
 
 import de.cynapsys.homeautomation.entity.Category;
 import de.cynapsys.homeautomation.entity.Device;
+import de.cynapsys.homeautomation.entity.network.DdnsEntity;
+import de.cynapsys.homeautomation.entity.network.UpnpEntity;
 import de.cynapsys.homeautomation.service.CategoryService;
 import de.cynapsys.homeautomation.service.DeviceService;
+import de.cynapsys.homeautomation.service.network.DDNSService;
 import de.cynapsys.homeautomation.serviceImpl.CategoryServiceImpl;
 import de.cynapsys.homeautomation.serviceImpl.DeviceServiceImpl;
+import de.cynapsys.homeautomation.serviceImpl.network.DDNSServiceImpl;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.After;
@@ -27,7 +31,7 @@ import static org.junit.Assert.*;
 
 public class CategoryTest {
     
-    private static CategoryService categoryService;
+    private CategoryService categoryService;
 
     
     @BeforeClass
@@ -51,8 +55,14 @@ public class CategoryTest {
         
         DeviceService ds = new DeviceServiceImpl();
         Device d = new Device("device", "device description", 11);
-        ds.addDevice(d);
+        //
+        
+        
 //        categoryService = new CategoryServiceImpl();
+//        System.out.println(categoryService.getAllCategories());
+        
+        DDNSService dDNSService = new DDNSServiceImpl();
+        dDNSService.changeConfiguration(new DdnsEntity(1,"account", "password", "fsdfs"));
 //        
 //        
 //        Category c = new Category("category 1", "description of category 1");

@@ -7,6 +7,7 @@ package de.cynapsys.homeautomation.webservice;
 
 import de.cynapsys.homeautomation.entity.Category;
 import java.util.ArrayList;
+import java.util.List;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebService;
@@ -21,7 +22,7 @@ import javax.jws.soap.SOAPBinding;
 public interface CategoryWebService {
 
     @WebMethod
-    ArrayList<Category> getAllCategories();
+    List<Category> getAllCategories();
 
     @WebMethod
     Category getCategoryByID(@WebParam(name = "CategoryID") Long CategoryID);

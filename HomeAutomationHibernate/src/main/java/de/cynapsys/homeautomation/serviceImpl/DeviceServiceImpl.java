@@ -8,9 +8,14 @@ package de.cynapsys.homeautomation.serviceImpl;
 import de.cynapsys.homeautomation.entity.Category;
 import de.cynapsys.homeautomation.entity.Device;
 import de.cynapsys.homeautomation.entity.Device;
+import de.cynapsys.homeautomation.entity.Room;
+import de.cynapsys.homeautomation.service.CategoryService;
 import de.cynapsys.homeautomation.service.DeviceService;
 import java.util.List;
+import java.util.List;
+import javax.transaction.Transactional;
 import org.hibernate.HibernateException;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import utils.HibernateUtil;
@@ -21,7 +26,7 @@ import utils.HibernateUtil;
 
 public class DeviceServiceImpl implements DeviceService{
 
-    Session session;
+    static transient Session session;
 
     @Override
     public Long addDevice(Device d) {
@@ -37,8 +42,10 @@ public class DeviceServiceImpl implements DeviceService{
     public Device getDeviceById(Long id) {
         session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
-        Device dd= (Device)session.load(Device.class, id);
-        session.getTransaction().commit();
+        Query query = session.createQuery("from Device where id = :id ");
+        query.setParameter("id", id);
+        
+        Device dd= (Device)query.uniqueResult();
         session.close();
         return dd;
     }
@@ -59,7 +66,7 @@ public class DeviceServiceImpl implements DeviceService{
         try {
             session = HibernateUtil.getSessionFactory().openSession();
             session.beginTransaction();
-            session.delete(getDeviceById(id));
+            session.delete(new Device(id, null, null, 0));
             session.getTransaction().commit();
             session.close();
             return true;
@@ -81,6 +88,24 @@ public class DeviceServiceImpl implements DeviceService{
         } catch (HibernateException hibernateException) {
             return false;
         }
+    }
+
+    @Override
+    public List<Device> getDevicesByRoom(Room r) {
+        session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        List<Device> lc= session.createCriteria(Device.class).list();
+        session.getTransaction().commit();
+        session.close();
+        return lc;
+    }
+
+    @Override
+    public List<Device> getDevicesByCategory(Category c) {
+        CategoryService cs = new CategoryServiceImpl();
+        Category cc=cs.getCategoryById(c.getId());
+        return cc.getDevices();
+        
     }
     
 }

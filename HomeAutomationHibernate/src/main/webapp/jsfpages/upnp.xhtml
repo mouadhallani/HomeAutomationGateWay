@@ -1,16 +1,74 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
-    <head>
-        <title>TODO supply a title</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    </head>
-    <body>
-        <div>TODO write content</div>
-    </body>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <f:view contentType="text/html">
+        <h:head>
+            <f:facet name="first">
+                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+                <title>
+
+                </title>
+                <link rel="shortcut icon" href="http://www.hongkiat.com/blog/favicon.ico"/>
+                <link rel="icon" href="http://www.hongkiat.com/blog/favicon.ico"/>
+                <link rel="stylesheet" type="text/css" media="all" href="ressources/css/global.css"/>
+                <link rel="stylesheet" type="text/css" media="all" href="http://fonts.googleapis.com/css?family=ABeeZee"/>
+                <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+                <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.0/jquery-ui.min.js"></script>
+                <script type="text/javascript" charset="utf-8" src="ressources/js/nav-left.js"></script>
+
+
+            </f:facet>
+        </h:head>
+
+        <h:body>
+            <div id="about">
+
+            </div>
+            <div id="mainpage">
+                <nav>
+                    <h1 align="center" class="title">Home Automation</h1><br/><br/>
+                    <ul id="navigation">
+
+                        <p class="menutitle">Home Administration</p>
+                        <li><a href="category.xhtml" class="lien"><img class="icon" src="ressources/img/category.png"/><span class="text">Categories</span></a></li>
+                        <li><a href="device.xhtml" class="lien"><img class="icon" src="ressources/img/device.png"/><span class="text">Device</span></a></li>
+                        <li><a href="room.xhtml" class="lien"><img class="icon" src="ressources/img/room.png"/><span class="text">Rooms</span></a></li>
+                        <br/><br/>
+                        <p class="menutitle">Network Administration</p>
+                        <li><a href="upnp.xhtml" class="lien"><img class="icon" src="ressources/img/upnp.png"/><span class="text">Upnp</span></a></li>
+                        <li><a href="ddns.xhtml" class="lien"><img class="icon" src="ressources/img/DNS.png"/><span class="text">DDNS</span></a></li>
+                    </ul>
+
+                    <img id="logo" src="http://www.universitesesame.com/wp-content/uploads/2014/12/Logo_Cynapsys.png"/>
+                </nav>
+                <div id="content"> 
+
+                    <h:form style="margin-top: 100px;">
+                        <ui:repeat value="#{upnpBean.values}" 
+                                   var="value">
+                            <p:inputText value="#{value}" />
+                            <br />
+                        </ui:repeat>
+
+                        <p:commandButton value="Extend">
+                            <f:ajax listener="#{upnpBean.extend}"
+                                    render="@form" />
+                        </p:commandButton>
+                        <p:commandButton action="#{upnpBean.submit}" 
+                                         value="Save" />
+                    </h:form>
+
+                </div>
+            </div>
+
+        </h:body>
+
+    </f:view>
 </html>
+
+
+

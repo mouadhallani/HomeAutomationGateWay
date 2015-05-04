@@ -5,6 +5,7 @@
  */
 package de.cynapsys.homeautomation.entity;
 
+import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -29,7 +30,7 @@ import org.hibernate.annotations.CascadeType;
 @Entity
 @Table(name = "`Device`")
 @XmlRootElement(name = "device")
-public class Device {
+public class Device implements Serializable {
 
     Long id;
     String name;
@@ -128,17 +129,10 @@ public class Device {
         return "Device{" + "id=" + id + ", name=" + name + ", description=" + description + ", currentValue=" + currentValue + '}'+"\n";
     }
 
-    
-
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 97 * hash + Objects.hashCode(this.id);
-        hash = 97 * hash + Objects.hashCode(this.name);
-        hash = 97 * hash + Objects.hashCode(this.description);
-        hash = 97 * hash + this.currentValue;
-        hash = 97 * hash + Objects.hashCode(this.room);
-        hash = 97 * hash + Objects.hashCode(this.category);
+        int hash = 3;
+        hash = 41 * hash + Objects.hashCode(this.id);
         return hash;
     }
 
@@ -154,25 +148,10 @@ public class Device {
         if (!Objects.equals(this.id, other.id)) {
             return false;
         }
-        if (!Objects.equals(this.name, other.name)) {
-            return false;
-        }
-        if (!Objects.equals(this.description, other.description)) {
-            return false;
-        }
-        if (this.currentValue != other.currentValue) {
-            return false;
-        }
-        if (!Objects.equals(this.room, other.room)) {
-            return false;
-        }
-        if (!Objects.equals(this.category, other.category)) {
-            return false;
-        }
+
         return true;
     }
-    
-    
+  
     
 
 }

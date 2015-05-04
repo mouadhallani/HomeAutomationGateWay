@@ -10,6 +10,7 @@ import de.cynapsys.homeautomation.entity.Room;
 import de.cynapsys.homeautomation.service.RoomService;
 import java.util.List;
 import org.hibernate.HibernateException;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import utils.HibernateUtil;
@@ -21,7 +22,7 @@ import utils.HibernateUtil;
 
 public class RoomServiceImpl implements RoomService{
 
-    Session session;
+    static transient Session session;
     
     @Override
     public Long addRoom(Room r) {
@@ -37,8 +38,10 @@ public class RoomServiceImpl implements RoomService{
     public Room getRoomById(Long id) {
         session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
-        Room rr= (Room)session.load(Room.class, id);
-        session.getTransaction().commit();
+        Query query = session.createQuery("from Room where id = :id ");
+        query.setParameter("id", id);
+        
+        Room rr= (Room)query.uniqueResult();
         session.close();
         return rr;
     }
@@ -47,7 +50,7 @@ public class RoomServiceImpl implements RoomService{
     public List<Room> getAllRooms() {
         session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
-        List<Room> lr=session.createCriteria(Room.class).list();
+        List<Room> lr = session.createCriteria(Room.class).list();
         session.getTransaction().commit();
         session.close();
         return lr;
@@ -58,7 +61,7 @@ public class RoomServiceImpl implements RoomService{
         try {
             session = HibernateUtil.getSessionFactory().openSession();
             session.beginTransaction();
-            session.delete(getRoomById(id));
+            session.delete(new Room(id, null, null));
             session.getTransaction().commit();
             session.close();
             return true;

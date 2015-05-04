@@ -13,8 +13,10 @@ package de.cynapsys.homeautomation.entity;
  * Purchased
  */
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.List;
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 import org.hibernate.annotations.Cascade;
@@ -31,7 +33,7 @@ public class Category implements Serializable {
     private String description;
 
     
-    private List<Device> devices;
+    private List<Device> devices = new ArrayList<>();
 
     public Category(Long id, String name, String description) {
         this.id = id;
@@ -96,11 +98,9 @@ public class Category implements Serializable {
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 13 * hash + Objects.hashCode(this.id);
-        hash = 13 * hash + Objects.hashCode(this.name);
-        hash = 13 * hash + Objects.hashCode(this.description);
-        hash = 13 * hash + Objects.hashCode(this.devices);
+        int hash = 5;
+        hash = 19 * hash + Objects.hashCode(this.id);
+
         return hash;
     }
 
@@ -116,21 +116,10 @@ public class Category implements Serializable {
         if (!Objects.equals(this.id, other.id)) {
             return false;
         }
-        if (!Objects.equals(this.name, other.name)) {
-            return false;
-        }
-        if (!Objects.equals(this.description, other.description)) {
-            return false;
-        }
-        if (!Objects.equals(this.devices, other.devices)) {
-            return false;
-        }
+        
         return true;
     }
-    
-    
-    
-    
+
     
     
 

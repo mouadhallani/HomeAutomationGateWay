@@ -8,6 +8,7 @@ package de.cynapsys.homeautomation.webserviceImpl;
 import de.cynapsys.homeautomation.entity.Device;
 import de.cynapsys.homeautomation.entity.Room;
 import de.cynapsys.homeautomation.service.RoomService;
+import de.cynapsys.homeautomation.serviceImpl.RoomServiceImpl;
 import de.cynapsys.homeautomation.webservice.RoomWebService;
 import java.util.ArrayList;
 import javax.jws.WebService;
@@ -25,7 +26,7 @@ public class RoomWebServiceImpl implements RoomWebService{
 //        RoomService roomService;
     
 
-    RoomService roomService;;
+    RoomService roomService = new RoomServiceImpl();
         
 //    public RoomWebServiceImpl() {
 //        

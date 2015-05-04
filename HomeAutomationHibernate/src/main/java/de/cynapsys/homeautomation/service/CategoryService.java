@@ -7,6 +7,7 @@ package de.cynapsys.homeautomation.service;
 
 import de.cynapsys.homeautomation.entity.Category;
 import java.util.List;
+import java.util.List;
 
 /**
  *

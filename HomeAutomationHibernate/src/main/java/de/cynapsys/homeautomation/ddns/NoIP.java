@@ -20,10 +20,10 @@ import org.apache.commons.codec.binary.Base64;
 public class NoIP extends Thread {
 
 
-    public static void main(String[] args) {
-        NoIP n = new NoIP("anisjribi@gmail.com","annous1992");
-        n.submitHostname("beity.ddns.net");
-    }
+//    public static void main(String[] args) {
+//        NoIP n = new NoIP("anisjribi@gmail.com","annous1992");
+//        n.submitHostname("beity.ddns.net");
+//    }
     
     private String username;
     private String password;
