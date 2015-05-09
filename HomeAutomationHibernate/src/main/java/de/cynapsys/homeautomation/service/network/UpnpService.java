@@ -19,5 +19,6 @@ public interface UpnpService {
     public List<UpnpEntity> getAllPorts();
     public UpnpEntity getUpnpByPort(int port);
     public String getPortStatus(int port);
+    public void addPort(int port);
     
 }

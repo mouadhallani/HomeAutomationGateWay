@@ -65,5 +65,10 @@ public class UpnpServiceImpl implements UpnpService{
         else
             return "Closed";
     }
+
+    @Override
+    public void addPort(int port) {
+        UPnP.RegisterPort(port);
+    }
     
 }

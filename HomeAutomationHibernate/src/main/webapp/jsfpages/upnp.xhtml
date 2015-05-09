@@ -39,16 +39,16 @@
                         <li><a href="room.xhtml" class="lien"><img class="icon" src="ressources/img/room.png"/><span class="text">Rooms</span></a></li>
                         <br/><br/>
                         <p class="menutitle">Network Administration</p>
-                        <li><a href="upnp.xhtml" class="lien"><img class="icon" src="ressources/img/upnp.png"/><span class="text">Upnp</span></a></li>
+                        <li><a href="upnp.xhtml" class="lien"><img class="icon" src="ressources/img/upnp.png"/><span class="text">UPnP</span></a></li>
                         <li><a href="ddns.xhtml" class="lien"><img class="icon" src="ressources/img/DNS.png"/><span class="text">DDNS</span></a></li>
                     </ul>
 
                     <img id="logo" src="http://www.universitesesame.com/wp-content/uploads/2014/12/Logo_Cynapsys.png"/>
                 </nav>
                 <div id="content"> 
-
+<p:panel id="panel" header="UPnP Coniguration" style="width: 90%; margin-left: 3%; margin-top: 5%;" >
                     <h:panelGrid columns="1" >
-                        <h:form style="margin-top: 100px;">
+                        <h:form style="margin-top: 10px;">
 
                             <ui:repeat value="#{upnpBean.values}" 
                                        var="value">
@@ -63,13 +63,14 @@
                             </ui:repeat>
 
 
-                            <p:commandButton value="add port">
+                            <p:commandButton value="add port" style="margin-top: 10px;">
                                 <f:ajax listener="#{upnpBean.extend}"
                                         render="@form" />
                             </p:commandButton>
 
                         </h:form>
                     </h:panelGrid>
+</p:panel>
 
                 </div>
             </div>

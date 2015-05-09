@@ -38,6 +38,7 @@ public class upnpBean {
     public void submit(int port) {
 
             if (upnpService.getUpnpByPort(port) == null){
+                upnpService.addPort(port);
                 upnp=new UpnpEntity(port);
                 upnpService.addPort(upnp);
             }
