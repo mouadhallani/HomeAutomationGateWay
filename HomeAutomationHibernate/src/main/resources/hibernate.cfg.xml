@@ -25,7 +25,7 @@
     <property name="hbm2ddl.auto">update</property>
     <!-- JDBC connection pool (use the built-in) -->
     <property name="connection.pool_size">1</property>
-    <property name="current_session_context_class">thread</property>
+<!--    <property name="current_session_context_class">thread</property> -->
     <mapping class="de.cynapsys.homeautomation.entity.Category"/>
     <mapping class="de.cynapsys.homeautomation.entity.Device"/>
     <mapping class="de.cynapsys.homeautomation.entity.Room"/>

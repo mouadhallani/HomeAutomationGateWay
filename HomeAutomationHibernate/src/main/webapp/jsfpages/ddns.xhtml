@@ -48,7 +48,7 @@
                 <div id="content"> 
 
                     <p:panel id="panel" header="DDNS Coniguration" style="width: 90%; margin-left: 3%; margin-top: 5%;" >
-                        
+                        <p:growl id="growl" showDetail="true" sticky="true" />
                         <h:form id="ddnsForm">
                             <h:panelGrid columns="3" >
                                 
@@ -74,7 +74,8 @@
                                 <p:message for="ddnshost" display="icon" />
                                 
                                 
-                                <p:commandButton value="Set DDNS Configuration" update="ddnsForm" actionListener="#{ddnsBean.setConfiguration}" icon="ui-icon-check" />
+                                <p:commandButton value="Set DDNS Configuration" update="ddnsForm" actionListener="#{ddnsBean.setConfiguration}" 
+                                                 icon="ui-icon-check" onclick=""/>
                                 <p:messages id="msgs" />
                                 <p:spacer height="50"/>
                                 

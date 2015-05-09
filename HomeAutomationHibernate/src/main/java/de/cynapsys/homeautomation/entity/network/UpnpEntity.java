@@ -8,6 +8,8 @@ package de.cynapsys.homeautomation.entity.network;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 /**
@@ -17,7 +19,7 @@ import javax.persistence.Id;
 @Entity
 public class UpnpEntity implements Serializable {
     
-    
+    private int id;
     private int port;
 
     public UpnpEntity(int port) {
@@ -28,6 +30,17 @@ public class UpnpEntity implements Serializable {
     }
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "`id`", nullable = false)
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+    
+    
     @Column(name = "`port`", nullable = false)
     public int getPort() {
         return port;
@@ -36,6 +49,12 @@ public class UpnpEntity implements Serializable {
     public void setPort(int port) {
         this.port = port;
     }
+
+    @Override
+    public String toString() {
+        return "\nUpnpEntity{" + "port=" + port + '}';
+    }
+    
     
     
 }

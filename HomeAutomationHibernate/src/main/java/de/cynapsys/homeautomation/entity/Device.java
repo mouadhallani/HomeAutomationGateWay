@@ -14,14 +14,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.CascadeType;
 
 /**
  *
@@ -38,6 +34,8 @@ public class Device implements Serializable {
     int currentValue;
     Room room;
     Category category;
+    
+    
 
     public Device() {
     }
@@ -99,9 +97,9 @@ public class Device implements Serializable {
     }
 
     @XmlElement
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="room_id", 
-                insertable=false, updatable=false, 
+                insertable=true, updatable=true, 
                 nullable=true)
     public Room getRoom() {
         return room;
@@ -112,9 +110,9 @@ public class Device implements Serializable {
     }
 
     @XmlElement
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="category_id", 
-                insertable=false, updatable=false, 
+                insertable=true, updatable=true, 
                 nullable=true)
     public Category getCategory() {
         return category;
@@ -126,8 +124,13 @@ public class Device implements Serializable {
 
     @Override
     public String toString() {
-        return "Device{" + "id=" + id + ", name=" + name + ", description=" + description + ", currentValue=" + currentValue + '}'+"\n";
+        if (room!=null && category!=null)
+            return "Device{" + "id=" + id + ", name=" + name + ", description=" + description + ", currentValue=" + currentValue + ", room=" + room.getName() + ", category=" + category.getName() + '}';
+        else
+            return "Device{" + "id=" + id + ", name=" + name + ", description=" + description + ", currentValue=" + currentValue + "}";
     }
+
+    
 
     @Override
     public int hashCode() {

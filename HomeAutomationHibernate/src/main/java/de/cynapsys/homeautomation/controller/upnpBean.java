@@ -24,30 +24,51 @@ import org.hibernate.Session;
 public class upnpBean {
     
     static transient Session session;
-        private List<String> values;
+        private List<UpnpEntity> values;
         
-        private UpnpService upnpService = new UpnpServiceImpl();
+        private final UpnpService upnpService = new UpnpServiceImpl();
         private UpnpEntity upnp;
 
     @PostConstruct
     public void init() {
-        values = upnp.ge
+        values = upnpService.getAllPorts();
+        upnp = new UpnpEntity();
     }
 
-    public void submit() {
-        // save values in database
+    public void submit(int port) {
+
+            if (upnpService.getUpnpByPort(port) == null){
+                upnp=new UpnpEntity(port);
+                upnpService.addPort(upnp);
+            }
+
+        
+    }
+    
+    public String portStatus(int port){
+        return upnpService.getPortStatus(port);
     }
 
     public void extend() {
-        values.add("");
+        values.add(new UpnpEntity());
     }
 
-    public void setValues(List<String> values) {
+    public void setValues(List<UpnpEntity> values) {
         this.values = values;
     }
 
-    public List<String> getValues() {
+    public List<UpnpEntity> getValues() {
         return values;
     }
+
+    public UpnpEntity getUpnp() {
+        return upnp;
+    }
+
+    public void setUpnp(UpnpEntity upnp) {
+        this.upnp = upnp;
+    }
+    
+    
     
 }

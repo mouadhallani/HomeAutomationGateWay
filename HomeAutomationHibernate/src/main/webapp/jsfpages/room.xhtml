@@ -20,11 +20,17 @@
                 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.0/jquery-ui.min.js"></script>
                 <script type="text/javascript" charset="utf-8" src="ressources/js/nav-left.js"></script>
                 
-                
+                <style type="text/css">
+                    .verticalTop{
+                        vertical-align: top;
+                        padding-top: 1%;
+                        font-size: 12px;
+                    }
+                </style>
             </f:facet>
         </h:head>
 
-        <h:body>
+        <h:body onload="#{roomBean.init()}">
             <div id="about">
 
             </div>
@@ -48,30 +54,30 @@
                 <div id="content"> 
 
                     <p:spacer height="90"></p:spacer>
-                    <p:panel id="panel" header="Category" style="width: 90%; margin-left: 3%" >
+                    <p:panel id="panel" header="Room Administration" style="width: 90%; margin-left: 3%" >
 
 
 
-                        <h:form id="categoryForm">
-                            <h:panelGrid columns="3" cellpadding="10" cellspacing="10" >
+                        <h:form id="roomForm">
+                            <h:panelGrid columns="3" cellpadding="10" cellspacing="10" columnClasses="verticalTop,verticalTop" >
                                 
-                                <p:outputLabel for="categoryname" value="Category Name:"  styleClass="vertAlign" />
-                                <p:inputText id="categoryname" value="#{categoryBean.cat.name}" required="true" label="categoryname" style="height: 150%; width: 150%;">
+                                <p:outputLabel for="roomname" value="Room Name:"  styleClass="vertAlign" />
+                                <p:inputText id="roomname" value="#{roomBean.room.name}" required="true" label="roomname" style="height: 150%; width: 150%;">
                                     <f:validateLength minimum="2" />
                                 </p:inputText>
-                                <p:message for="categoryname" display="icon" />
+                                <p:message for="roomname" display="icon" />
 
                                 <p:spacer height="20"/>
                                 <p:spacer height="20"/>
                                 <p:spacer height="20"/>
                                 
-                                <p:outputLabel for="description" value="Category Description:"  styleClass="vertAlign"/>
-                                <p:inputTextarea rows="6" cols="33"  id="description" value="#{categoryBean.cat.description}" label="Lastname" required="true" style="height: 150%; width: 150%;">
+                                <p:outputLabel for="description" value="Room Description:" />
+                                <p:inputTextarea rows="6" cols="33"  id="description" value="#{roomBean.room.description}" label="roomdescription" style=" width: 150%;">
                                     <f:validateLength minimum="2" />
                                 </p:inputTextarea>
-                                <p:message for="description" id="msgLastname" display="icon" />
+                                <p:message for="description"  display="icon" />
                                 
-                                <p:commandButton value="add" update="categoryForm, a:CatgoryTab" actionListener="#{categoryBean.addCategory()}" icon="ui-icon-check" />
+                                <p:commandButton value="add" update="roomForm, a:RoomTab" actionListener="#{roomBean.addRoom()}" icon="ui-icon-check" />
                                 <p:messages id="msgs" />
 
                             </h:panelGrid>
@@ -81,39 +87,39 @@
                         <h:form id="a">
                             <p:growl id="growl" showDetail="true" sticky="false"  />
                             
-                            <p:dataTable var="category" value="#{categoryBean.categoryList}" id="CatgoryTab" widgetVar="CategoryTable"
-                                         emptyMessage="Not found categories " paginator="true" rows="10" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                            <p:dataTable var="room" value="#{roomBean.roomList}" id="RoomTab" widgetVar="RoomTable"
+                                         emptyMessage="Not found rooms " paginator="true" rows="10" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                          rowsPerPageTemplate="5,10,15" style="width:100%;font-size:13px; margin-top: 3%;">
 
 
-                                <p:column id="categoryId" headerText="ID" filterBy="#{category.id}" filterMatchMode="exact" sortBy="#{category.id}">
-                                    <h:outputText value="#{category.id}" />
+                                <p:column id="roomId" headerText="ID" filterBy="#{room.id}" filterMatchMode="exact" sortBy="#{room.id}">
+                                    <h:outputText value="#{room.id}" />
                                 </p:column>
                                 
-                                <p:column headerText="Nom" id="categoryName" filterBy="#{category.name}" filterMatchMode="contains" sortBy="#{category.name}" >
-                                    <h:outputText value="#{category.name}" />
+                                <p:column headerText="Nom" id="roomName" filterBy="#{room.name}" filterMatchMode="contains" sortBy="#{room.name}" >
+                                    <h:outputText value="#{room.name}" />
                                 </p:column>
                                 
-                                <p:column headerText="Description" id="categoryDescription" filterBy="#{category.description}" filterMatchMode="contains" sortBy="#{category.description}" >
-                                    <h:outputText value="#{category.description}" />
+                                <p:column headerText="Description" id="roomDescription" filterBy="#{room.description}" filterMatchMode="contains" sortBy="#{room.description}" >
+                                    <h:outputText value="#{room.description}" />
                                 </p:column>
 
 
                                 <p:column style="width:5%">
-                                    <p:commandButton update=":userDetailForm:display" oncomplete="PF('catDialog').show();"  title="Editer" icon="ui-icon-arrowrefresh-1-w">
-                                        <f:setPropertyActionListener value="#{category}" target="#{categoryBean.category}" />    
+                                    <p:commandButton update=":roomDetailForm:display" oncomplete="PF('UpdateroomDialog').show();"  title="Editer" icon="ui-icon-arrowrefresh-1-w">
+                                        <f:setPropertyActionListener value="#{room}" target="#{roomBean.roomForUpdate}" />    
                                     </p:commandButton>
                                 </p:column>
                                 
                                 
                                 <p:column style="width:5%">
-                                    <p:commandButton id="Supprimer"  update=":a:CatgoryTab" icon="ui-icon-trash" actionListener="#{categoryBean.deleteCategory(category)}"  title="Supprime">
+                                    <p:commandButton id="Supprimer"  update=":a:RoomTab" icon="ui-icon-trash" actionListener="#{roomBean.deleteRoom(room)}"  title="Supprime">
                                     </p:commandButton>
                                 </p:column>
                                 
                                 <p:column style="width:8%">
                                     <p:commandButton update=":deviceDetailTable" oncomplete="PF('deviceDialog').show();"  title="listDevice" value="List Devices">
-                                        <f:setPropertyActionListener value="#{category}" target="#{categoryBean.categoryForDevices}" />    
+                                        <f:setPropertyActionListener value="#{room}" target="#{roomBean.roomForDevices}" />    
                                     </p:commandButton>
                                 </p:column>
                                 
@@ -128,20 +134,20 @@
 
 
 
-                    <p:dialog header="Modifier category" widgetVar="catDialog" resizable="false" id="userDlg" > 
-                        <h:form id="userDetailForm">
+                    <p:dialog header="Modifier room" widgetVar="UpdateroomDialog" resizable="false" id="userDlg" > 
+                        <h:form id="roomDetailForm">
                             <h:panelGrid id="display" columns="2" cellpadding="4" style="margin:0 auto;">   
 
                                 <h:outputText value="Name :"></h:outputText>
-                                <h:inputText value="#{categoryBean.category.name}" required="true" />
+                                <h:inputText value="#{roomBean.roomForUpdate.name}" required="true" />
 
 
                                 <h:outputText value="Description :"></h:outputText>
-                                <h:inputText value="#{categoryBean.category.description}" required="true"/>
+                                <h:inputText value="#{roomBean.roomForUpdate.description}" required="true"/>
 
 
                                 <f:facet name="footer">
-                                    <p:commandButton value="Update" update=":a:CatgoryTab"  actionListener="#{categoryBean.updateCategory}"/>
+                                    <p:commandButton value="Update" update=":a:RoomTab"  actionListener="#{roomBean.updateRoom}"/>
                                 </f:facet>
                             </h:panelGrid> 
                         </h:form>
@@ -153,9 +159,9 @@
                     <p:dialog header="device Detail" widgetVar="deviceDialog" resizable="false" id="deviceDlg" width="800" height="300"> 
                         <h:form id="deviceDetailTable">
                             
-                            <p:outputLabel value="la liste des devices attachés au category #{categoryBean.categoryForDevices.name} numéro #{categoryBean.categoryForDevices.id}"/>
+                            <p:outputLabel value="la liste des devices attachés au room #{roomBean.roomForDevices.name} numéro #{roomBean.roomForDevices.id}"/>
                             
-                            <p:dataTable var="device" value="#{categoryBean.categoryForDevices.devices}" id="CatgoryTab" widgetVar="deviceTable"
+                            <p:dataTable var="device" value="#{roomBean.roomForDevices.devices}" id="RoomTab" widgetVar="deviceTable"
                                          emptyMessage="no device attached" paginator="true" style="width:100%;font-size:13px; margin-top: 3%;"
                                          paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
 

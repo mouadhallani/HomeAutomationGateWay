@@ -5,6 +5,7 @@
  */
 package de.cynapsys.homeautomation.entity;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.List;
@@ -28,7 +29,7 @@ import javax.xml.bind.annotation.XmlElement;
 @Entity
 @Table(name="`Room`")
 
-public class Room {
+public class Room implements Serializable {
     
     Long id;
     String name;

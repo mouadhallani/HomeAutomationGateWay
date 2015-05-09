@@ -24,7 +24,7 @@
             </f:facet>
         </h:head>
 
-        <h:body>
+        <h:body onload="#{upnpBean.init()}">
             <div id="about">
 
             </div>
@@ -47,20 +47,29 @@
                 </nav>
                 <div id="content"> 
 
-                    <h:form style="margin-top: 100px;">
-                        <ui:repeat value="#{upnpBean.values}" 
-                                   var="value">
-                            <p:inputText value="#{value}" />
-                            <br />
-                        </ui:repeat>
+                    <h:panelGrid columns="1" >
+                        <h:form style="margin-top: 100px;">
 
-                        <p:commandButton value="Extend">
-                            <f:ajax listener="#{upnpBean.extend}"
-                                    render="@form" />
-                        </p:commandButton>
-                        <p:commandButton action="#{upnpBean.submit}" 
-                                         value="Save" />
-                    </h:form>
+                            <ui:repeat value="#{upnpBean.values}" 
+                                       var="value">
+                                <h:panelGrid columns="3">
+                                    <p:spinner min="0" max="65535" value="#{value.port}" required="true"/>
+
+                                    <p:commandButton action="#{upnpBean.submit(value.port)}" 
+                                                     value="open port" />
+                                    <h:outputLabel value="#{upnpBean.portStatus(value.port)}" style="color: black"/>
+                                </h:panelGrid> 
+
+                            </ui:repeat>
+
+
+                            <p:commandButton value="add port">
+                                <f:ajax listener="#{upnpBean.extend}"
+                                        render="@form" />
+                            </p:commandButton>
+
+                        </h:form>
+                    </h:panelGrid>
 
                 </div>
             </div>

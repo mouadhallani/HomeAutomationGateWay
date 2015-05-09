@@ -10,7 +10,9 @@ import de.cynapsys.homeautomation.entity.network.UpnpEntity;
 import de.cynapsys.homeautomation.service.network.UpnpService;
 import static de.cynapsys.homeautomation.serviceImpl.network.DDNSServiceImpl.session;
 import java.util.List;
+import org.hibernate.criterion.Restrictions;
 import utils.HibernateUtil;
+import de.cynapsys.homeautomation.upnp.*;
 
 /**
  *
@@ -39,12 +41,29 @@ public class UpnpServiceImpl implements UpnpService{
     }
 
     @Override
-    public List<Integer> getAllPorts() {
+    public List<UpnpEntity> getAllPorts() {
         session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
-        List<Integer> lp = session.createCriteria(UpnpEntity.class).list();
+        List<UpnpEntity> lp = session.createCriteria(UpnpEntity.class).list();
         session.close();
         return lp;
+    }
+
+    @Override
+    public UpnpEntity getUpnpByPort(int port) {
+        session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        UpnpEntity upnpEntity = (UpnpEntity)session.createCriteria(UpnpEntity.class).add(Restrictions.like("port", port)).uniqueResult();
+        session.close();
+        return upnpEntity;
+    }
+
+    @Override
+    public String getPortStatus(int port) {
+        if (UPnP.getPortStatus(port))
+            return "Opened";
+        else
+            return "Closed";
     }
     
 }

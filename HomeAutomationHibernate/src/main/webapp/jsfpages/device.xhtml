@@ -19,12 +19,20 @@
                 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
                 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.0/jquery-ui.min.js"></script>
                 <script type="text/javascript" charset="utf-8" src="ressources/js/nav-left.js"></script>
+
                 
-                
+                <style type="text/css">
+                    .verticalTop{
+                        vertical-align: top;
+                        padding-top: 5%;
+                        font-size: 12px;
+                    }
+                </style>
+
             </f:facet>
         </h:head>
 
-        <h:body>
+        <h:body onload="#{deviceBean.init()}">
             <div id="about">
 
             </div>
@@ -48,123 +56,71 @@
                 <div id="content"> 
 
                     <p:spacer height="90"></p:spacer>
-                    <p:panel id="panel" header="Category" style="width: 90%; margin-left: 3%" >
+                    <p:panel id="panel" header="Device Administration" style="width: 90%; margin-left: 3%" >
 
 
 
-                        <h:form id="categoryForm">
-                            <h:panelGrid columns="3" cellpadding="10" cellspacing="10" >
-                                
-                                <p:outputLabel for="categoryname" value="Category Name:"  styleClass="vertAlign" />
-                                <p:inputText id="categoryname" value="#{categoryBean.cat.name}" required="true" label="categoryname" style="height: 150%; width: 150%;">
+                        <h:form id="deviceForm">
+                            <h:panelGrid columns="3" columnClasses="verticalTop,verticalTop" >
+
+                                <p:outputLabel for="devicename" value="Device Name:" />
+                                <p:inputText id="devicename" value="#{deviceBean.device.name}" required="true" label="devicename" style="height: 150%; width: 150%;">
                                     <f:validateLength minimum="2" />
                                 </p:inputText>
-                                <p:message for="categoryname" display="icon" />
+                                <p:message for="devicename" display="icon" />
 
-                                <p:spacer height="20"/>
-                                <p:spacer height="20"/>
-                                <p:spacer height="20"/>
-                                
-                                <p:outputLabel for="description" value="Category Description:"  styleClass="vertAlign"/>
-                                <p:inputTextarea rows="6" cols="33"  id="description" value="#{categoryBean.cat.description}" label="Lastname" required="true" style="height: 150%; width: 150%;">
+
+                                <p:outputLabel for="description" value="Device Description:" />
+                                <p:inputTextarea rows="6" cols="33"  id="description" value="#{deviceBean.device.description}" label="description" style=" width: 150%;">
                                     <f:validateLength minimum="2" />
                                 </p:inputTextarea>
-                                <p:message for="description" id="msgLastname" display="icon" />
+                                <p:message for="description" display="icon" />
+
+
+                                <p:outputLabel for="currentvalue" value="Current Value :"  />
+                                <p:spinner id="currentvalue" value="#{deviceBean.device.currentValue}" label="currentvalue" min="0" max="100">
+                                </p:spinner>
+                                <p:message for="currentvalue" display="icon" />
+
+
+                                <p:outputLabel for="room" value="Room : " />
+                                <p:selectOneMenu id="room"  value="#{deviceBean.device.room}" style="width:150px" required="true" converter="roomConverter">
+                                    <f:selectItem itemLabel="Select room" itemValue="" noSelectionOption="true" />
+                                    <f:selectItems var ="r" value="#{deviceBean.roomList}"
+                                                   itemLabel="#{r.name}" itemValue="#{r}"/>
+                                </p:selectOneMenu>
+                                <p:message for="room" display="icon" />
                                 
-                                <p:commandButton value="add" update="categoryForm, a:CatgoryTab" actionListener="#{categoryBean.addCategory()}" icon="ui-icon-check" />
+                                
+                                <p:outputLabel for="category" value="Category : " />
+                                <p:selectOneMenu id="category"  value="#{deviceBean.device.category}" style="width:150px" required="true" converter="categoryConverter">
+                                    <f:selectItem itemLabel="Select category" itemValue="" noSelectionOption="true" />
+                                    <f:selectItems var ="c" value="#{deviceBean.catgeoryList}"
+                                                   itemLabel="#{c.name}" itemValue="#{c}"/>
+                                </p:selectOneMenu>
+                                <p:message for="category" display="icon" />
+
+
+                                <p:commandButton value="add" update="deviceForm, a:DeviceTab" actionListener="#{deviceBean.addDevice()}" icon="ui-icon-check" />
                                 <p:messages id="msgs" />
 
                             </h:panelGrid>
                         </h:form>
-
-
+                        
+                        
                         <h:form id="a">
                             <p:growl id="growl" showDetail="true" sticky="false"  />
                             
-                            <p:dataTable var="category" value="#{categoryBean.categoryList}" id="CatgoryTab" widgetVar="CategoryTable"
+                            <p:dataTable var="device" value="#{deviceBean.deviceList}" id="DeviceTab" widgetVar="DeviceTable"
                                          emptyMessage="Not found categories " paginator="true" rows="10" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                          rowsPerPageTemplate="5,10,15" style="width:100%;font-size:13px; margin-top: 3%;">
-
-
-                                <p:column id="categoryId" headerText="ID" filterBy="#{category.id}" filterMatchMode="exact" sortBy="#{category.id}">
-                                    <h:outputText value="#{category.id}" />
-                                </p:column>
-                                
-                                <p:column headerText="Nom" id="categoryName" filterBy="#{category.name}" filterMatchMode="contains" sortBy="#{category.name}" >
-                                    <h:outputText value="#{category.name}" />
-                                </p:column>
-                                
-                                <p:column headerText="Description" id="categoryDescription" filterBy="#{category.description}" filterMatchMode="contains" sortBy="#{category.description}" >
-                                    <h:outputText value="#{category.description}" />
-                                </p:column>
-
-
-                                <p:column style="width:5%">
-                                    <p:commandButton update=":userDetailForm:display" oncomplete="PF('catDialog').show();"  title="Editer" icon="ui-icon-arrowrefresh-1-w">
-                                        <f:setPropertyActionListener value="#{category}" target="#{categoryBean.category}" />    
-                                    </p:commandButton>
-                                </p:column>
-                                
-                                
-                                <p:column style="width:5%">
-                                    <p:commandButton id="Supprimer"  update=":a:CatgoryTab" icon="ui-icon-trash" actionListener="#{categoryBean.deleteCategory(category)}"  title="Supprime">
-                                    </p:commandButton>
-                                </p:column>
-                                
-                                <p:column style="width:8%">
-                                    <p:commandButton update=":deviceDetailTable" oncomplete="PF('deviceDialog').show();"  title="listDevice" value="List Devices">
-                                        <f:setPropertyActionListener value="#{category}" target="#{categoryBean.categoryForDevices}" />    
-                                    </p:commandButton>
-                                </p:column>
-                                
-                                
-                            </p:dataTable>
-
-                        </h:form>
-
-                    </p:panel>
-
-
-
-
-
-                    <p:dialog header="Modifier category" widgetVar="catDialog" resizable="false" id="userDlg" > 
-                        <h:form id="userDetailForm">
-                            <h:panelGrid id="display" columns="2" cellpadding="4" style="margin:0 auto;">   
-
-                                <h:outputText value="Name :"></h:outputText>
-                                <h:inputText value="#{categoryBean.category.name}" required="true" />
-
-
-                                <h:outputText value="Description :"></h:outputText>
-                                <h:inputText value="#{categoryBean.category.description}" required="true"/>
-
-
-                                <f:facet name="footer">
-                                    <p:commandButton value="Update" update=":a:CatgoryTab"  actionListener="#{categoryBean.updateCategory}"/>
-                                </f:facet>
-                            </h:panelGrid> 
-                        </h:form>
-                    </p:dialog> 
-                    
-                    
-                    
-                    
-                    <p:dialog header="device Detail" widgetVar="deviceDialog" resizable="false" id="deviceDlg" width="800" height="300"> 
-                        <h:form id="deviceDetailTable">
-                            
-                            <p:outputLabel value="la liste des devices attachés au category #{categoryBean.categoryForDevices.name} numéro #{categoryBean.categoryForDevices.id}"/>
-                            
-                            <p:dataTable var="device" value="#{categoryBean.categoryForDevices.devices}" id="CatgoryTab" widgetVar="deviceTable"
-                                         emptyMessage="no device attached" paginator="true" style="width:100%;font-size:13px; margin-top: 3%;"
-                                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
 
 
                                 <p:column id="deviceId" headerText="ID" filterBy="#{device.id}" filterMatchMode="exact" sortBy="#{device.id}">
                                     <h:outputText value="#{device.id}" />
                                 </p:column>
                                 
-                                <p:column headerText="Name" id="deviceName" filterBy="#{device.name}" filterMatchMode="contains" sortBy="#{device.name}" >
+                                <p:column headerText="Nom" id="deviceName" filterBy="#{device.name}" filterMatchMode="contains" sortBy="#{device.name}" >
                                     <h:outputText value="#{device.name}" />
                                 </p:column>
                                 
@@ -172,13 +128,72 @@
                                     <h:outputText value="#{device.description}" />
                                 </p:column>
                                 
-                                <p:column headerText="Current Value" id="deviceCurrentVal" filterBy="#{device.currentValue}" filterMatchMode="contains" sortBy="#{device.currentValue}" >
+                                <p:column headerText="Current Value" id="deviceCurrentValue" >
                                     <h:outputText value="#{device.currentValue}" />
                                 </p:column>
- 
+                                
+                                <p:column headerText="Room" id="deviceRoom" filterBy="#{device.room.name}" filterMatchMode="contains" sortBy="#{device.room.name}" >
+                                    <h:outputText value="#{device.room.name}" />
+                                </p:column>
+                                
+                                <p:column headerText="Category" id="devicecategory" filterBy="#{device.category.name}" filterMatchMode="contains" sortBy="#{device.category.name}" >
+                                    <h:outputText value="#{device.category.name}" />
+                                </p:column>
+
+
+                                <p:column style="width:5%">
+                                    <p:commandButton update=":deviceDetailForm:display" oncomplete="PF('deviceDialog').show();"  title="Editer" icon="ui-icon-arrowrefresh-1-w">
+                                        <f:setPropertyActionListener value="#{device}" target="#{deviceBean.deviceForUpdate}" />    
+                                    </p:commandButton>
+                                </p:column>
+                                
+                                
+                                <p:column style="width:5%">
+                                    <p:commandButton id="Supprimer"  update=":a:DeviceTab" icon="ui-icon-trash" actionListener="#{deviceBean.deleteDevice(device)}"  title="Supprime">
+                                    </p:commandButton>
+                                </p:column>
+                                
+                                
                             </p:dataTable>
+
                         </h:form>
-                    </p:dialog> 
+                    </p:panel>
+
+                    <p:dialog header="Modifier Device" widgetVar="deviceDialog" resizable="false" id="userDlg" > 
+                        <h:form id="deviceDetailForm">
+                            <h:panelGrid id="display" columns="2" cellpadding="4" style="margin:0 auto;">   
+
+                                <h:outputText value="Name :"></h:outputText>
+                                <h:inputText value="#{deviceBean.deviceForUpdate.name}" required="true" />
+
+
+                                <h:outputText value="Description :"></h:outputText>
+                                <h:inputText value="#{deviceBean.deviceForUpdate.description}" required="true"/>
+                                
+                                <h:outputLabel for="current" value="urrent Value: " />
+                                <p:spinner id="current" value="#{deviceBean.deviceForUpdate.currentValue}" min="0" max="100" />
+
+                                <p:outputLabel for="room" value="Room : " />
+                                <p:selectOneMenu id="room"  value="#{deviceBean.deviceForUpdate.room}" style="width:150px" required="true" converter="roomConverter">
+                                    <f:selectItem itemLabel="Select room" itemValue="" noSelectionOption="true" />
+                                    <f:selectItems var ="r" value="#{deviceBean.roomList}"
+                                                   itemLabel="#{r.name}" itemValue="#{r}"/>
+                                </p:selectOneMenu>
+                                
+                                
+                                <p:outputLabel value="Category : " />
+                                <p:selectOneMenu id="category"  value="#{deviceBean.deviceForUpdate.category}" style="width:150px" required="true" converter="categoryConverter">
+                                    <f:selectItem itemLabel="Select category" itemValue="" noSelectionOption="true" />
+                                    <f:selectItems var ="c" value="#{deviceBean.catgeoryList}"
+                                                   itemLabel="#{c.name}" itemValue="#{c}"/>
+                                </p:selectOneMenu>
+
+                                <f:facet name="footer">
+                                    <p:commandButton value="Update" update=":a:DeviceTab"  actionListener="#{deviceBean.updateDevice()}"/>
+                                </f:facet>
+                            </h:panelGrid> 
+                        </h:form>
+                    </p:dialog>
 
 
                 </div>

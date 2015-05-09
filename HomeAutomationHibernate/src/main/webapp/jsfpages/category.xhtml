@@ -20,11 +20,17 @@
                 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.0/jquery-ui.min.js"></script>
                 <script type="text/javascript" charset="utf-8" src="ressources/js/nav-left.js"></script>
                 
-                
+                <style type="text/css">
+                    .verticalTop{
+                        vertical-align: top;
+                        padding-top: 1%;
+                        font-size: 12px;
+                    }
+                </style>
             </f:facet>
         </h:head>
 
-        <h:body>
+        <h:body onload="#{categoryBean.init()}">
             <div id="about">
 
             </div>
@@ -48,15 +54,15 @@
                 <div id="content"> 
 
                     <p:spacer height="90"></p:spacer>
-                    <p:panel id="panel" header="Category" style="width: 90%; margin-left: 3%" >
+                    <p:panel id="panel" header="Category Administration" style="width: 90%; margin-left: 3%" >
 
 
 
                         <h:form id="categoryForm">
-                            <h:panelGrid columns="3" cellpadding="10" cellspacing="10" >
+                            <h:panelGrid columns="3" cellpadding="10" cellspacing="10" columnClasses="verticalTop,verticalTop" >
                                 
                                 <p:outputLabel for="categoryname" value="Category Name:"  styleClass="vertAlign" />
-                                <p:inputText id="categoryname" value="#{categoryBean.cat.name}" required="true" label="categoryname" style="height: 150%; width: 150%;">
+                                <p:inputText id="categoryname" value="#{categoryBean.cat.name}" required="true" label="categoryname" style=" height: 150%; width: 150%;">
                                     <f:validateLength minimum="2" />
                                 </p:inputText>
                                 <p:message for="categoryname" display="icon" />
@@ -66,7 +72,7 @@
                                 <p:spacer height="20"/>
                                 
                                 <p:outputLabel for="description" value="Category Description:"  styleClass="vertAlign"/>
-                                <p:inputTextarea rows="6" cols="33"  id="description" value="#{categoryBean.cat.description}" label="Lastname" required="true" style="height: 150%; width: 150%;">
+                                <p:inputTextarea rows="6" cols="33"  id="description" value="#{categoryBean.cat.description}" label="Lastname" required="true" style="width: 150%;">
                                     <f:validateLength minimum="2" />
                                 </p:inputTextarea>
                                 <p:message for="description" id="msgLastname" display="icon" />
